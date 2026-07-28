@@ -65,7 +65,7 @@ def write_dialog():
 
 
 # 5. 메인 화면 구성
-st.title("📋 Dairy")
+st.title("📋 Xave Dairy")
 
 # 상단 작성 버튼 영역
 col_title, col_btn = st.columns([8, 2])
