@@ -74,14 +74,27 @@ with col_btn:
 
 st.divider()
 
-# 6. 게시글 목록 및 상세 내용 보기 (Expander 목록 방식)
+# 6. 게시글 목록 및 삭제 기능
 if st.session_state.posts:
     for idx, post in enumerate(st.session_state.posts):
-        # 제목 클릭 시 열리는 아코디언 형태의 목록 생성
-        with st.expander(f"📌 **[{post['작성일']}]** {post['제목']}"):
-            st.markdown(f"**작성일시:** {post['작성일']}")
-            st.write("---")
-            # 본문 내용 출력 (줄바꿈 반영)
-            st.write(post["내용"])
+        # 목록 영역(9)과 삭제 버튼 영역(1)을 분리
+        col_content, col_del = st.columns([9, 1])
+
+        with col_content:
+            # 제목 클릭 시 열리는 아코디언 형태
+            with st.expander(f"📌 **[{post['작성일']}]** {post['제목']}"):
+                st.markdown(f"**작성일시:** {post['작성일']}")
+                st.write("---")
+                st.write(post["내용"])
+
+        with col_del:
+            # 게시글 삭제 버튼 (각 항목별 고유 key 지정 필수)
+            if st.button("🗑️ 삭제", key=f"del_{idx}", use_container_width=True):
+                # 리스트에서 해당 게시글 제거
+                st.session_state.posts.pop(idx)
+                # JSON 파일 업데이트
+                save_posts(st.session_state.posts)
+                # 화면 갱신
+                st.rerun()
 else:
     st.info("등록된 게시글이 없습니다. 상단의 작성 버튼을 눌러 글을 추가해보세요!")
