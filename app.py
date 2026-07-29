@@ -24,6 +24,15 @@ def save_posts(posts):
         json.dump(posts, f, ensure_ascii=False, indent=4)
 
 
+# 비밀번호 가져오기 (st.secrets 또는 환경 변수 fallback)
+def get_delete_password():
+    # 1. Streamlit secrets에서 확인 (.streamlit/secrets.toml)
+    if "DELETE_PASSWORD" in st.secrets:
+        return str(st.secrets["DELETE_PASSWORD"])
+    # 2. OS 환경 변수에서 확인
+    return os.environ.get("DELETE_PASSWORD", "")
+
+
 # 페이지 기본 설정
 st.set_page_config(page_title="JSON 기반 메모장", layout="wide")
 
@@ -63,7 +72,38 @@ def write_dialog():
             st.rerun()
 
 
+<<<<<<< HEAD
 # 5. 메인 화면 구성
+=======
+# 5. 글 삭제 비밀번호 확인 팝업 창(Dialog) 정의
+@st.dialog("게시글 삭제")
+def delete_dialog(target_idx):
+    st.write("게시글을 삭제하려면 비밀번호를 입력하세요.")
+    password_input = st.text_input("비밀번호", type="password")
+
+    col1, col2 = st.columns([1, 1])
+
+    with col1:
+        if st.button("삭제 확인", type="primary", use_container_width=True):
+            correct_password = get_delete_password()
+
+            if password_input == correct_password:
+                # 리스트에서 해당 게시글 제거
+                st.session_state.posts.pop(target_idx)
+                # JSON 파일 업데이트
+                save_posts(st.session_state.posts)
+                st.success("삭제되었습니다.")
+                st.rerun()
+            else:
+                st.error("비밀번호가 일치하지 않습니다.")
+
+    with col2:
+        if st.button("취소", use_container_width=True):
+            st.rerun()
+
+
+# 6. 메인 화면 구성
+>>>>>>> d544ae4 (삭제 추가)
 st.title("📋 Xave Diary")
 
 # 상단 작성 버튼 영역
@@ -74,6 +114,7 @@ with col_btn:
 
 st.divider()
 
+<<<<<<< HEAD
 # 6. 게시글 목록 및 삭제 기능
 if st.session_state.posts:
     for idx, post in enumerate(st.session_state.posts):
@@ -82,12 +123,21 @@ if st.session_state.posts:
 
         with col_content:
             # 제목 클릭 시 열리는 아코디언 형태
+=======
+# 7. 게시글 목록 및 삭제 기능
+if st.session_state.posts:
+    for idx, post in enumerate(st.session_state.posts):
+        col_content, col_del = st.columns([9, 1])
+
+        with col_content:
+>>>>>>> d544ae4 (삭제 추가)
             with st.expander(f"📌 **[{post['작성일']}]** {post['제목']}"):
                 st.markdown(f"**작성일시:** {post['작성일']}")
                 st.write("---")
                 st.write(post["내용"])
 
         with col_del:
+<<<<<<< HEAD
             # 게시글 삭제 버튼 (각 항목별 고유 key 지정 필수)
             if st.button("🗑️ 삭제", key=f"del_{idx}", use_container_width=True):
                 # 리스트에서 해당 게시글 제거
@@ -96,5 +146,10 @@ if st.session_state.posts:
                 save_posts(st.session_state.posts)
                 # 화면 갱신
                 st.rerun()
+=======
+            # 삭제 버튼 클릭 시 비밀번호 확인 Dialog 호출
+            if st.button("🗑️ 삭제", key=f"del_{idx}", use_container_width=True):
+                delete_dialog(idx)
+>>>>>>> d544ae4 (삭제 추가)
 else:
     st.info("등록된 게시글이 없습니다. 상단의 작성 버튼을 눌러 글을 추가해보세요!")
