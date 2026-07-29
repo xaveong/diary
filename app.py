@@ -1,7 +1,6 @@
 from datetime import datetime
 import json
 import os
-import pandas as pd
 import streamlit as st
 
 # JSON 파일 경로 설정
@@ -65,7 +64,7 @@ def write_dialog():
 
 
 # 5. 메인 화면 구성
-st.title("📋 Xave Dairy")
+st.title("📋 Xave Diary")
 
 # 상단 작성 버튼 영역
 col_title, col_btn = st.columns([8, 2])
@@ -75,19 +74,14 @@ with col_btn:
 
 st.divider()
 
-# 6. 입력된 이력을 Table 형식으로 표시
+# 6. 게시글 목록 및 상세 내용 보기 (Expander 목록 방식)
 if st.session_state.posts:
-    df = pd.DataFrame(st.session_state.posts)
-
-    st.dataframe(
-        df,
-        use_container_width=True,
-        hide_index=True,
-        column_config={
-            "작성일": st.column_config.TextColumn("작성일시", width="medium"),
-            "제목": st.column_config.TextColumn("제목", width="large"),
-            "내용": st.column_config.TextColumn("내용", width="max"),
-        },
-    )
+    for idx, post in enumerate(st.session_state.posts):
+        # 제목 클릭 시 열리는 아코디언 형태의 목록 생성
+        with st.expander(f"📌 **[{post['작성일']}]** {post['제목']}"):
+            st.markdown(f"**작성일시:** {post['작성일']}")
+            st.write("---")
+            # 본문 내용 출력 (줄바꿈 반영)
+            st.write(post["내용"])
 else:
     st.info("등록된 게시글이 없습니다. 상단의 작성 버튼을 눌러 글을 추가해보세요!")
