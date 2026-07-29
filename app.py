@@ -72,7 +72,6 @@ def write_dialog():
             st.rerun()
 
 
-<<<<<<< HEAD
 # 5. 메인 화면 구성
 =======
 # 5. 글 삭제 비밀번호 확인 팝업 창(Dialog) 정의
@@ -103,7 +102,7 @@ def delete_dialog(target_idx):
 
 
 # 6. 메인 화면 구성
->>>>>>> d544ae4 (삭제 추가)
+
 st.title("📋 Xave Diary")
 
 # 상단 작성 버튼 영역
