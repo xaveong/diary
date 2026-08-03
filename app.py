@@ -5,7 +5,7 @@ from supabase import create_client, Client
 # =================================================================  
 # [수정 부분] Supabase 연결 설정  
 # 실제 배포 시에는 st.secrets["SUPABASE_URL"] 형태로 사용하시길 권장합니다.  
-SUPABASE_URL = "https://tknitxkblejqijfdrmze.supabase.com" # 여기에 본인의 Supabase URL 입력  
+SUPABASE_URL = "https://tknitxkblejqijfdrmze.supabase.com/rest/v1/" # 여기에 본인의 Supabase URL 입력  
 SUPABASE_KEY = "sb_publishable_oyEgOHHThvaUw7-xD3J5Qw_MERJtYOO"                 # 여기에 본인의 Supabase anon key 입력  
 # =================================================================
 
