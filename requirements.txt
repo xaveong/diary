@@ -26,7 +26,6 @@ pydeck==0.9.3
 python-dateutil==2.9.0.post0
 python-multipart==0.0.32
 referencing==0.37.0
-requests==2.34.2
 rpds-py==2026.6.3
 six==1.17.0
 smmap==5.0.3
@@ -39,3 +38,4 @@ urllib3==2.7.0
 uvicorn==0.51.0
 watchdog==6.0.0
 websockets==16.1.1
+supabase==2.3.0
