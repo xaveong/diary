@@ -5,8 +5,8 @@ from supabase import create_client, Client
 # =================================================================  
 # [수정 부분] Supabase 연결 설정  
 # 실제 배포 시에는 st.secrets["SUPABASE_URL"] 형태로 사용하시길 권장합니다.  
-SUPABASE_URL = st.secrets["SUPABASE_URL"]  
-SUPABASE_KEY = st.secrets["SUPABASE_KEY"] 
+SUPABASE_URL = st.secrets["supabase_url"]  
+SUPABASE_KEY = st.secrets["supabase_key"] 
 # =================================================================
 
 # Supabase 클라이언트 초기화  
