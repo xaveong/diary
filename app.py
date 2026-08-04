@@ -99,7 +99,7 @@ def delete_dialog(post_id):
             st.rerun()
 
 # 6. 메인 화면 구성  
-st.title("📋 Xave Diary (github + streamlit + supabase)")
+st.title("📋 Xave Diary")
 
 col_title, col_btn = st.columns([8, 2])  
 with col_btn:  
